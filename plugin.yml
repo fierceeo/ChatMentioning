@@ -1,0 +1,4 @@
+name: ChatMentioning
+main: com.voidcitymc.plugins.Chat.Main
+version: 1.0
+author: ramdon_person
