@@ -21,13 +21,13 @@ public class Chat implements Listener {
         String[] newMessageA = new String[tempArray.length];
         String newMessage;
         
-        ChatColor lastColor;
+        String lastColor;
         
         for (int i = 0; i < tempArray.length; i++) {
         	//check if a player is in the message ^
         	if (Bukkit.getPlayerExact(tempArray[i]) != null) {
             	if (event.getRecipients().contains(Bukkit.getPlayerExact(tempArray[i]))) {
-            		lastColor = ChatColor.getByChar(ChatColor.getLastColors(tempArray[i]));
+            		lastColor = ChatColor.getLastColors(tempArray[i]);
             		newMessageA[i] = ChatColor.AQUA+tempArray[i]+lastColor;
             		//tell the player they got mentioned, tell sender they mentioned a player and play a ding noise
             		Bukkit.getPlayerExact(tempArray[i]).playSound(Bukkit.getPlayer(tempArray[i]).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 0F);
