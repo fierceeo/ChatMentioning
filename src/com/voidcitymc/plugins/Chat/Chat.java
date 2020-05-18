@@ -3,13 +3,15 @@ package com.voidcitymc.plugins.Chat;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 
 public class Chat implements Listener {
-	@EventHandler
+	@EventHandler (priority = EventPriority.HIGHEST)
 	public void mentionChat (AsyncPlayerChatEvent event) {
 		
         String[] tempArray;
@@ -24,10 +26,15 @@ public class Chat implements Listener {
         	//check if a player is in the message ^
         	if (Bukkit.getPlayer(tempArray[i]) != null) {
             	newMessageA[i] = ChatColor.AQUA+tempArray[i]+ChatColor.WHITE;
-            	//tell the player they got mentioned and tell the sender they mentioned a player
             	if (Bukkit.getPlayer(tempArray[i]) != null) {
-            		Bukkit.getPlayer(tempArray[i]).sendMessage(ChatColor.AQUA+event.getPlayer().getName()+" has mentioned you!");
-            		event.getPlayer().sendMessage(ChatColor.AQUA+"You mentioned "+tempArray[i]+"!");
+            		if (event.getRecipients().contains(Bukkit.getPlayer(tempArray[i]))) {
+            			//tell the player they got mentioned, tell sender they mentioned a player and play a ding noise
+            			Bukkit.getPlayer(tempArray[i]).playSound(Bukkit.getPlayer(tempArray[i]).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 0F);
+            			Bukkit.getPlayer(tempArray[i]).sendMessage(ChatColor.AQUA+event.getPlayer().getName()+" has mentioned you!");
+            			event.getPlayer().sendMessage(ChatColor.AQUA+"You mentioned "+tempArray[i]+"!");
+            		} else {
+            			//could not mention player because of local chat plugin, etc.
+            		}
             	}
         	} else {
         		newMessageA[i] = tempArray[i];
