@@ -33,6 +33,8 @@ public class Chat implements Listener {
             		Bukkit.getPlayerExact(tempArray[i]).playSound(Bukkit.getPlayer(tempArray[i]).getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.5F, 0F);
             		Bukkit.getPlayerExact(tempArray[i]).sendMessage(ChatColor.AQUA+event.getPlayer().getName()+" has mentioned you!");
             		event.getPlayer().sendMessage(ChatColor.AQUA+"You mentioned "+tempArray[i]+"!");
+            		Bukkit.getPlayerExact(tempArray[i]).sendMessage(lastColor);
+            		System.out.println(lastColor);
             	} else {
             		//could not mention player because of local chat plugin, etc.
             	}
